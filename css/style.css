@@ -1,4 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap');
+
+/* ============================================================================
+   Akash Biswas - portfolio
+   Dark terminal theme. Palette stays close to the original (#333 / #ccc / green)
+   so the WinBox windows still read as one continuous CLI surface.
+   ========================================================================== */
+
+:root {
+  /* Was #00aa00 on #333 = 4.06:1, which fails WCAG AA.
+     #38d16a on #333 is 6.9:1 and still reads as terminal green. */
+  --text-color: #38d16a;
+
+  --bg: #333333;        /* unchanged from the original */
+  --surface: #1a1a1a;   /* window body, was #111 */
+  --surface-2: #242424; /* cards */
+  --chrome: #141414;    /* window title bar */
+  --line: #3f3f3f;
+
+  --fg: #d6d6d6;        /* was #ccc, raised slightly for contrast */
+  --fg-dim: #9a9a9a;
+}
 
 * {
   box-sizing: border-box;
@@ -6,92 +27,391 @@
   margin: 0;
 }
 
-:root {
-  --text-color: #00aa00;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Roboto Mono', sans-serif;
-  background-color: #333;
-  color: #ccc;
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  background-color: var(--bg);
+  color: var(--fg);
   font-size: 18px;
   line-height: 1.6;
+  -webkit-text-smoothing: antialiased;
 }
 
 h1 {
   color: var(--text-color);
-  font-size: 50px;
-  letter-spacing: -5px;
-  margin-bottom: 20px;
+  /* Was a fixed 50px with -5px tracking, which overflowed a 320px phone. */
+  font-size: clamp(1.9rem, 8vw, 3.1rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  word-break: break-word;
 }
 
 h2 {
   color: var(--text-color);
+  font-size: 1.15rem;
+  margin-bottom: 14px;
 }
 
 h3 {
   margin-bottom: 10px;
+  font-size: 1rem;
 }
 
-ul {
-  list-style-type: none;
-}
+ul { list-style-type: none; }
 
 a {
   color: var(--text-color);
   text-decoration: none;
 }
+a:hover { text-decoration: underline; }
 
-p {
-  margin: 20px 0;
+p { margin: 0 0 14px; }
+
+code {
+  background: #2a2a2a;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 0.85em;
+  color: var(--fg);
 }
 
-nav {
-  width: 30%;
+strong { color: #f0f0f0; font-weight: 500; }
+
+/* Visible keyboard focus everywhere. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--text-color);
+  color: #111;
+  padding: 10px 16px;
+  z-index: 10000;
+}
+.skip:focus { left: 8px; top: 8px; }
+
+/* ---------------------------------- nav ---------------------------------- */
 nav ul {
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;       /* was width:30% + space-around -> cramped on phones */
+  gap: 6px 10px;
   align-items: center;
+  margin-bottom: 26px;
 }
 
-nav ul li {
+nav ul li a {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
   color: var(--text-color);
-  cursor: pointer;
+  font-size: 0.82rem;
+}
+nav ul li a:hover {
+  border-color: var(--text-color);
+  text-decoration: none;
+  background: #2a2a2a;
 }
 
+/* ------------------------------- hero bits -------------------------------- */
+.role {
+  color: var(--text-color);
+  font-weight: 500;
+}
+.role .arrow { padding: 0 4px; }
+
+.tagline {
+  color: var(--fg);
+  max-width: 46ch;
+  margin-bottom: 22px;
+  font-size: 0.95rem;
+}
+.tagline strong { color: var(--text-color); }
+
+.socials li { margin-bottom: 4px; }
+
+/* Was height:70vh + justify-content:center, which clipped every new section. */
 .container {
-  max-width: 600px;
+  max-width: 620px;
   margin: auto;
-  height: 70vh;
+  padding: 26px 20px 70px;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
+/* $ and block cursor beside the name. JS toggles .is-off every 1s (2s cycle).
+   CSS animation is the no-JS fallback and is exempt from reduced-motion. */
+.prompt-blink {
+  display: inline-block;
+  white-space: nowrap;
+  animation: prompt-blink 2s step-end infinite;
+}
+html.js .prompt-blink {
+  animation: none;
+}
+.prompt-blink.is-off {
+  visibility: hidden;
+}
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  margin-left: 2px;
+  font-weight: 700;
+}
+.cursor::after { content: "\2588"; }
+
+@keyframes prompt-blink {
+  from, to { visibility: visible; }
+  50%      { visibility: hidden; }
+}
+
+/* ============================================================================
+   WINBOX THEME
+   The bundled WinBox v0.1.8 ships a light body and a blue frame. These rules
+   keep the dark CLI look. Structure is:
+     .winbox > .wb-header > (.wb-icon > span.wb-min/.wb-max/.wb-full/.wb-close,
+                             .wb-title)
+              > .wb-body
+   ========================================================================== */
+.winbox {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.wb-header {
+  background: var(--chrome);
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.wb-title {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  color: var(--text-color);
+  line-height: 35px;
+  padding-left: 12px;
+}
+
+/* Controls float right and are 30px wide each in the bundle. */
+.wb-icon { height: 35px; }
+.wb-icon > span { opacity: 0.75; transition: opacity 0.15s ease; }
+.wb-icon > span:hover { opacity: 1; }
+
 .wb-body {
-  background: #111;
+  background: var(--surface);
+  color: var(--fg);
   padding: 20px;
 }
 
-.hidden {
-  display: none;
+.wb-body h2 { margin-bottom: 14px; }
+.wb-body p  { font-size: 0.92rem; }
+
+/* -------------------------------- content --------------------------------- */
+.sections { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+.content {
+  max-width: 900px;
+  margin: 0 auto 34px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
 }
 
-.cursor {
+.content p { max-width: 70ch; font-size: 0.95rem; }
+
+.bullets {
+  list-style: none;
+  margin: 0 0 14px;
+  padding-left: 18px;
+}
+.bullets li {
+  position: relative;
+  margin-bottom: 7px;
+  font-size: 0.92rem;
+  color: var(--fg);
+}
+.bullets li::before {
+  content: "-";
+  position: absolute;
+  left: -14px;
+  color: var(--text-color);
+}
+
+.note { color: var(--fg-dim); font-size: 0.85rem; }
+
+.contact-list li { margin-bottom: 6px; font-size: 0.92rem; }
+
+.todo-email {
+  color: #e8b062;
+  border-bottom: 1px dashed #e8b062;
+}
+
+/* ------------------------------- loading ---------------------------------- */
+.loading { color: var(--fg-dim); font-size: 0.9rem; }
+
+.stack > * + * { margin-top: 12px; }
+
+/* ------------------------------- cards ------------------------------------ */
+.card {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-2);
+  padding: 14px 16px;
+}
+.card h3 {
+  color: var(--text-color);
+  font-size: 0.98rem;
+  margin-bottom: 4px;
+}
+.card .sub {
+  color: var(--fg);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+.card .desc {
+  color: var(--fg-dim);
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.chips { margin-bottom: 10px; }
+.chip {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 1px 7px;
+  margin: 0 5px 5px 0;
+  font-size: 0.72rem;
+  color: var(--fg-dim);
+}
+
+.links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; }
+
+.cert { display: flex; gap: 12px; align-items: flex-start; }
+.cert .mark {
+  flex: none;
+  width: 22px; height: 22px;
+  border-radius: 3px;
+  background: var(--text-color);
+  color: #111;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
   font-weight: 700;
-  animation: 1s blink step-end infinite;
+}
+.cert .body { flex: 1; min-width: 0; }
+.cert .name { color: #f0f0f0; font-size: 0.9rem; }
+.cert .meta {
+  color: var(--fg-dim);
+  font-size: 0.75rem;
+  word-break: break-word;
 }
 
-@keyframes blink {
-  from,
-  to {
-    color: transparent;
+.tag {
+  flex: none;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  border-radius: 3px;
+  padding: 1px 6px;
+}
+.tag.expired { border-color: #e8b062; color: #e8b062; }
+
+/* ---------------------------- progress bars ------------------------------- */
+.book-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+.book-top .title { color: #f0f0f0; font-size: 0.92rem; }
+.book-top .author { color: var(--fg-dim); font-size: 0.78rem; }
+
+.prog { display: flex; align-items: center; gap: 10px; }
+.track {
+  flex: 1;
+  height: 8px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  background: var(--text-color);
+  border-radius: 3px;
+  width: 0;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pct {
+  flex: none;
+  min-width: 40px;
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--text-color);
+}
+
+.noscript-note {
+  max-width: 620px;
+  margin: 0 auto 34px;
+  padding: 14px 18px;
+  border: 1px solid #e8b062;
+  border-radius: 5px;
+  color: #e8b062;
+  font-size: 0.85rem;
+}
+
+/* ============================================================================
+   PROGRESSIVE ENHANCEMENT
+   With JS the sections are cloned into WinBox windows, so the page-flow
+   versions are hidden from view. Without JS they remain visible and
+   scrollable. The markup is identical either way.
+   ========================================================================== */
+.js .sections { display: none; }
+
+/* ============================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 700px) {
+  body { font-size: 16px; }
+
+  .container {
+    padding: 22px 16px 60px;
+    justify-content: flex-start;   /* centring pushed content off-screen */
   }
 
-  50% {
-    color: var(--text-color);
+  .sections { padding: 0 12px; }
+
+  /* The original hardcoded 400px-wide windows at left:250, which ran
+     entirely off a 375px phone. main.js now sizes these in JS; this is the
+     belt-and-braces clamp. */
+  .winbox { max-width: 94vw; }
+  .wb-body { padding: 16px; }
+  .wb-icon > span { width: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *:not(.prompt-blink),
+  *:not(.prompt-blink)::before,
+  *:not(.prompt-blink)::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

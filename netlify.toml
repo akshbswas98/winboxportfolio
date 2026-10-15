@@ -1,0 +1,32 @@
+# Netlify configuration for the portfolio.
+# https://docs.netlify.com/build/configure-builds/file-based-configuration/
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Serve the content API at a clean path instead of /.netlify/functions/notion
+[[redirects]]
+  from = "/api/content"
+  to = "/.netlify/functions/notion"
+  status = 200
+
+# Cache the static fallback payload for five minutes.
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+
+# Fingerprint-free assets are tiny, but the HTML should not be cached hard.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# NOTE: environment variables declared in this file are NOT readable by
+# functions at runtime. Set NOTION_TOKEN and the *_DB_ID values in the Netlify
+# UI, or with `netlify env:set`, with the Functions scope enabled.

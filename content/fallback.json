@@ -1,0 +1,88 @@
+{
+  "_comment": "Static fallback served when the Netlify Function or Notion is unreachable. Keep the same shape as the live /api/content response. Update this file when your real content changes.",
+
+  "books": [
+    {
+      "title": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "cover": null,
+      "progress": 62,
+      "status": "Reading",
+      "started": "2026-08-14",
+      "rating": 5,
+      "note": null
+    },
+    {
+      "title": "The Staff Engineer's Path",
+      "author": "Will Larson",
+      "cover": null,
+      "progress": 28,
+      "status": "Reading",
+      "started": "2026-09-02",
+      "rating": 4,
+      "note": null
+    },
+    {
+      "title": "Database Reliability Engineering",
+      "author": "Charlie Campbell",
+      "cover": null,
+      "progress": 11,
+      "status": "Reading",
+      "started": "2026-10-01",
+      "rating": null,
+      "note": null
+    }
+  ],
+
+  "certifications": [
+    {
+      "title": "AWS Certified Solutions Architect - Associate",
+      "issuer": "Amazon Web Services",
+      "cred": "REPLACE-WITH-YOUR-CREDENTIAL-ID",
+      "url": null,
+      "badge": null,
+      "issued": "2026-06-18",
+      "expires": "2029-06-18",
+      "order": 1
+    },
+    {
+      "title": "REPLACE - Certification name",
+      "issuer": "Issuing body",
+      "cred": "REPLACE-WITH-YOUR-CREDENTIAL-ID",
+      "url": null,
+      "badge": null,
+      "issued": null,
+      "expires": null,
+      "order": 2
+    }
+  ],
+
+  "projects": [
+    {
+      "title": "Zero-Downtime Postgres to Aurora Cutover",
+      "summary": "REPLACE - one line describing the outcome, max ~90 characters.",
+      "description": "REPLACE - problem, approach, result. This is the text that gets you interviews.",
+      "stack": ["REPLACE", "with", "your", "stack"],
+      "repo": "https://github.com/akshbswas98",
+      "live": null,
+      "caseStudy": null,
+      "cover": null,
+      "year": 2026,
+      "featured": true,
+      "order": 1
+    },
+    {
+      "title": "REPLACE - Project name",
+      "summary": "REPLACE - one line describing the outcome.",
+      "description": "REPLACE - problem, approach, result.",
+      "stack": ["REPLACE"],
+      "repo": "https://github.com/akshbswas98",
+      "live": null,
+      "caseStudy": null,
+      "cover": null,
+      "year": 2026,
+      "featured": false,
+      "order": 2
+    }
+  ]
+}
