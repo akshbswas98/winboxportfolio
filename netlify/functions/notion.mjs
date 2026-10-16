@@ -117,6 +117,7 @@ function shapeProject(p) {
     repo: url(x.Repo),
     live: url(x.Live),
     caseStudy: url(x['Case Study']),
+    video: url(x.Video),
     cover: file(x.Cover),
     year: num(x.Year),
     featured: flag(x.Featured),

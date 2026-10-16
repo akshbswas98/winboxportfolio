@@ -59,6 +59,21 @@
 
   "projects": [
     {
+      "title": "Build Your Own Company Wiki with AI Search",
+      "summary": "Full tutorial walkthrough: turning an internal doc set into a searchable, AI-answered knowledge base.",
+      "description": "Covers indexing the wiki, chunking and embedding the documents, then wiring retrieval so answers cite the source page instead of guessing.",
+      "stack": ["REPLACE", "with", "your", "stack"],
+      "repo": null,
+      "live": null,
+      "caseStudy": null,
+      "video": "https://www.youtube.com/watch?v=DNuD3Ia8qHM",
+      "videoCredit": "Tutorial by Dave Ebbelaar",
+      "cover": null,
+      "year": 2026,
+      "featured": true,
+      "order": 1
+    },
+    {
       "title": "Zero-Downtime Postgres to Aurora Cutover",
       "summary": "REPLACE - one line describing the outcome, max ~90 characters.",
       "description": "REPLACE - problem, approach, result. This is the text that gets you interviews.",
@@ -66,10 +81,11 @@
       "repo": "https://github.com/akshbswas98",
       "live": null,
       "caseStudy": null,
+      "video": null,
       "cover": null,
       "year": 2026,
       "featured": true,
-      "order": 1
+      "order": 2
     },
     {
       "title": "REPLACE - Project name",
@@ -79,10 +95,11 @@
       "repo": "https://github.com/akshbswas98",
       "live": null,
       "caseStudy": null,
+      "video": null,
       "cover": null,
       "year": 2026,
       "featured": false,
-      "order": 2
+      "order": 3
     }
   ]
 }

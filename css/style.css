@@ -366,6 +366,113 @@ html.js .prompt-blink {
   color: var(--text-color);
 }
 
+/* ------------------------- video project card ------------------------- */
+.video { margin-bottom: 10px; }
+
+.video-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  overflow: hidden;
+  background: #0f0f0f;
+  cursor: pointer;
+  aspect-ratio: 16 / 9;
+  transition: border-color 0.2s ease;
+}
+.video-thumb:hover { border-color: var(--text-color); }
+.video-thumb:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+.video-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.82;
+  transition: opacity 0.2s ease, transform 0.35s ease;
+}
+.video-thumb:hover img { opacity: 1; transform: scale(1.03); }
+
+.video-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  border: 2px solid var(--text-color);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.video-thumb:hover .video-play {
+  transform: scale(1.08);
+  background: rgba(0, 0, 0, 0.78);
+}
+/* Triangle drawn with borders so it needs no icon font or image. */
+.video-play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent var(--text-color);
+}
+
+.video-credit {
+  margin: 7px 0 0;
+  color: var(--fg-dim);
+  font-size: 0.75rem;
+}
+
+/* ------------------------------- lightbox -------------------------------- */
+/* Sits on document.body, above every WinBox window (which start at z 999). */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.88);
+}
+.lightbox-frame {
+  width: min(1000px, 100%);
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.lightbox-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 7px 12px;
+  background: var(--surface);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.lightbox-close:hover { background: var(--surface-2); }
+
+/* Stop the page behind the lightbox from scrolling. */
+body.has-lightbox { overflow: hidden; }
+
 .noscript-note {
   max-width: 620px;
   margin: 0 auto 34px;
@@ -403,6 +510,13 @@ html.js .prompt-blink {
   .winbox { max-width: 94vw; }
   .wb-body { padding: 16px; }
   .wb-icon > span { width: 26px; }
+
+  /* Video: smaller tap target padding, and the lightbox goes near-fullscreen
+     so the player is not letterboxed inside a phone-sized frame. */
+  .video-play { width: 44px; height: 44px; }
+  .lightbox { padding: 10px; }
+  .lightbox-frame { width: 100%; }
+  .lightbox-close { top: 8px; right: 8px; padding: 6px 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

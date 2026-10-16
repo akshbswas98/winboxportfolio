@@ -25,6 +25,7 @@
   var BG_BLUR = '#1a1a1a';
 
   var open = null; /* single active window */
+  var openKey = null; /* which section it is showing */
 
   /* ------------------------------------------------------------- geometry */
 
@@ -59,6 +60,7 @@
       try { open.close(); } catch (e) { /* already gone */ }
     }
     open = null;
+    openKey = null;
   }
 
   function openSection(key) {
@@ -83,9 +85,10 @@
     }, {}));
 
     if (open && typeof open.on === 'function') {
-      open.on('closed', function () { open = null; });
+      open.on('closed', function () { open = null; openKey = null; });
     }
 
+    openKey = key;
     return true;
   }
 
@@ -94,6 +97,16 @@
   document.addEventListener('DOMContentLoaded', function () {
 
     var links = document.querySelectorAll('nav a[data-win]');
+
+    /* A window is built from section.innerHTML at the moment it opens. Content
+       arrives asynchronously, and a deep link can open the window before the
+       fetch resolves, which would leave "loading..." on screen for good.
+       Re-sync the open body whenever the content renders. */
+    document.addEventListener('portfolio:content', function () {
+      if (!open || !openKey || !open.body) return;
+      var section = document.getElementById('sec-' + openKey);
+      if (section) open.body.innerHTML = section.innerHTML;
+    });
 
     Array.prototype.forEach.call(links, function (a) {
       a.addEventListener('click', function (e) {
@@ -109,8 +122,19 @@
 
     /* Escape closes the focused window. Without this, a window could only be
        dismissed with the mouse. */
+    /* Escape is handled here and nowhere else. If the video lightbox is open it
+       takes the key first and the window stays standing behind it; otherwise
+       Escape closes the window. */
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' || e.key === 'Esc') closeOpen();
+      if (e.key !== 'Escape' && e.key !== 'Esc') return;
+
+      var pc = window.PortfolioContent;
+      if (pc && pc.isLightboxOpen && pc.isLightboxOpen()) {
+        e.preventDefault();
+        pc.closeLightbox();
+        return;
+      }
+      closeOpen();
     });
 
     /* Re-centre an open window when the viewport changes, so rotating a phone
