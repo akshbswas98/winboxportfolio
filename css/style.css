@@ -254,11 +254,6 @@ html.js .prompt-blink {
 
 .contact-list li { margin-bottom: 6px; font-size: 0.92rem; }
 
-.todo-email {
-  color: #e8b062;
-  border-bottom: 1px dashed #e8b062;
-}
-
 /* ------------------------------- loading ---------------------------------- */
 .loading { color: var(--fg-dim); font-size: 0.9rem; }
 
