@@ -107,6 +107,20 @@ function shapeCert(p) {
   };
 }
 
+function shapeBlog(p) {
+  const x = p.properties;
+  return {
+    title: txt(x.Title),
+    summary: txt(x.Summary),
+    url: url(x.URL),
+    cover: file(x.Cover),
+    date: date(x.Date),
+    readingTime: num(x['Reading Time']),
+    tags: multi(x.Tags),
+    order: num(x.Order) ?? 999
+  };
+}
+
 function shapeProject(p) {
   const x = p.properties;
   return {
@@ -158,11 +172,15 @@ export default async function handler(req) {
   }
 
   try {
-    const [books, certifications, projects] = await Promise.all([
+    const [books, blogs, certifications, projects] = await Promise.all([
       query(process.env.BOOKS_DB_ID, {
         filter: { property: 'Status', select: { equals: 'Reading' } },
         sorts: [{ property: 'Started', direction: 'descending' }]
       }).then(r => r.map(shapeBook)),
+
+      query(process.env.BLOGS_DB_ID, {
+        sorts: [{ property: 'Order', direction: 'ascending' }]
+      }).then(r => r.map(shapeBlog).sort(byOrder)),
 
       query(process.env.CERTS_DB_ID, {
         sorts: [{ property: 'Order', direction: 'ascending' }]
@@ -173,7 +191,7 @@ export default async function handler(req) {
       }).then(r => r.map(shapeProject).sort(byOrder))
     ]);
 
-    return json({ books, certifications, projects, fetchedAt: new Date().toISOString() });
+    return json({ books, blogs, certifications, projects, fetchedAt: new Date().toISOString() });
   } catch (err) {
     // Non-2xx on purpose: content.js sees the failure and uses the static
     // fallback rather than rendering nothing.

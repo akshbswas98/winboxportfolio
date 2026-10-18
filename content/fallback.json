@@ -59,16 +59,15 @@
 
   "projects": [
     {
-      "title": "Build Your Own Company Wiki with AI Search",
-      "summary": "Full tutorial walkthrough: turning an internal doc set into a searchable, AI-answered knowledge base.",
-      "description": "Covers indexing the wiki, chunking and embedding the documents, then wiring retrieval so answers cite the source page instead of guessing.",
-      "stack": ["REPLACE", "with", "your", "stack"],
-      "repo": null,
-      "live": null,
+      "title": "Kshanik Search",
+      "summary": "Self-hosted meta-search engine in Go: fanned out across five providers, then merged, deduped and ranked. Built as a memorial to my grandfather.",
+      "description": "Started life as a SerpApi + Google Custom Search wrapper that stopped being affordable by late 2025. Rebuilt the backend in Go: concurrent fan-out across DuckDuckGo, Wikipedia, GitHub, Reddit and Stack Overflow, then hybrid ranking that merges, deduplicates and scores on relevance plus source reliability. Sized to run on minimal hardware, so it no longer lives or dies by someone else's free tier. Relaunched on the fifth anniversary of my grandfather's passing.",
+      "stack": ["Go", "HTML/CSS", "Netlify", "ngrok"],
+      "repo": "https://github.com/akshbswas98/kshanik_search",
+      "live": "https://kshaniksearch.netlify.app/",
       "caseStudy": null,
-      "video": "https://www.youtube.com/watch?v=DNuD3Ia8qHM",
-      "videoCredit": "Tutorial by Dave Ebbelaar",
-      "cover": null,
+      "video": null,
+      "cover": "img/kshanik-search.png",
       "year": 2026,
       "featured": true,
       "order": 1
@@ -100,6 +99,18 @@
       "year": 2026,
       "featured": false,
       "order": 3
+    }
+  ],
+
+  "blogs": [
+    {
+      "title": "From Legacy to Launch: How Gemini CLI Helped Me Build a Meta-Search Engine — Part 1",
+      "summary": "A tribute project built in college hit a quota wall in late 2025. Rebuilding it as a self-hosted Go meta-search engine, with Gemini CLI as a collaborator rather than a code generator, turned it into something that could actually survive.",
+      "url": "https://dev.to/akshbswas98/from-legacy-to-launch-how-gemini-cli-helped-me-build-a-meta-search-engine-to-honor-my-late-3bc8",
+      "date": "2026-05-23",
+      "readingTime": 3,
+      "tags": ["ai", "webdev", "gemini", "antigravity"],
+      "cover": "img/blog-gemini-cli.jpg"
     }
   ]
 }

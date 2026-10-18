@@ -141,6 +141,15 @@
     renderList('projects-mount', list, function (p) {
       var card = el('div', 'card');
 
+      /* cover was in the data shape from the start but was never drawn */
+      if (p.cover) {
+        var shot = el('img', 'cover');
+        shot.src = p.cover;
+        shot.alt = p.title + ' screenshot';
+        shot.loading = 'lazy';
+        card.appendChild(shot);
+      }
+
       var title = el('h3', null, p.title);
       if (p.featured) title.appendChild(el('span', 'chip', 'featured'));
       card.appendChild(title);
@@ -235,6 +244,46 @@
     }, 'Not reading anything right now.');
   }
 
+  /* ----------------------------------------------------------------- blogs */
+
+  function renderBlogs(list) {
+    renderList('blogs-mount', list, function (b) {
+      var card = el('div', 'card blog');
+
+      if (b.cover) {
+        var shot = el('img', 'cover');
+        shot.src = b.cover;
+        shot.alt = '';
+        shot.loading = 'lazy';
+        card.appendChild(shot);
+      }
+
+      var head = el('div', 'blog-head');
+      head.appendChild(el('h3', null, b.title));
+
+      var meta = [];
+      if (b.date) meta.push(b.date);
+      if (b.readingTime) meta.push(b.readingTime + ' min read');
+      if (meta.length) head.appendChild(el('div', 'meta', meta.join('   |   ')));
+      card.appendChild(head);
+
+      if (b.summary) card.appendChild(el('p', 'desc', b.summary));
+
+      if (b.tags && b.tags.length) {
+        var chips = el('div', 'chips');
+        b.tags.forEach(function (t) { chips.appendChild(el('span', 'chip', '#' + t)); });
+        card.appendChild(chips);
+      }
+
+      if (b.url) {
+        var l = el('div', 'links');
+        l.appendChild(link(b.url, '-> read'));
+        card.appendChild(l);
+      }
+      return card;
+    }, 'No posts yet.');
+  }
+
   /* ------------------------------------------------------- certifications */
 
   function renderCerts(list) {
@@ -268,6 +317,7 @@
   function render(data) {
     renderProjects(data.projects || []);
     renderBooks(data.books || []);
+    renderBlogs(data.blogs || []);
     renderCerts(data.certifications || []);
 
     /* main.js clones a section's HTML when a window opens, so a window opened
@@ -305,7 +355,7 @@
     load()
       .then(render)
       .catch(function () {
-        render({ projects: [], books: [], certifications: [] });
+        render({ projects: [], books: [], blogs: [], certifications: [] });
       });
   });
 })();

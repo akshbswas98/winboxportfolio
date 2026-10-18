@@ -366,6 +366,30 @@ html.js .prompt-blink {
   color: var(--text-color);
 }
 
+/* ------------------------- cover / blog cards -------------------------- */
+/* Full-bleed screenshot at the top of a project card. */
+.card > img.cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Portrait and landscape screenshots both need to sit in one slot. */
+  max-height: 300px;
+  object-fit: cover;
+  object-position: top center;
+  border-bottom: 1px solid var(--line);
+  /* The card carries its own padding; a cover should reach the edges. */
+  margin: -14px -16px 12px;
+  border-radius: 4px 4px 0 0;
+  background: #0f0f0f;
+}
+
+.blog .blog-head { margin-bottom: 6px; }
+.blog .blog-head h3 { margin-bottom: 3px; }
+.blog .meta {
+  color: var(--fg-dim);
+  font-size: 0.75rem;
+}
+
 /* ------------------------- video project card ------------------------- */
 .video { margin-bottom: 10px; }
 

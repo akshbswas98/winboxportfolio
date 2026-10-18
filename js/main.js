@@ -16,6 +16,7 @@
     about: 'About Me',
     projects: 'Projects',
     books: 'Books',
+    blogs: 'Blogs',
     certifications: 'Certifications',
     contact: 'Contact Me'
   };
@@ -146,9 +147,14 @@
       resizeTimer = setTimeout(function () {
         if (!open) return;
         var g = geometry();
+        /* WinBox v0.1.8 spells these move() and resize(). There is no
+           setPosition(), and both take an optional third "animate" argument --
+           passing one makes them animate instead of applying immediately. */
         if (typeof open.resize === 'function') {
-          open.resize(g.width + 'px', g.height + 'px', 'top');
-          open.setPosition(g.left + 'px', g.top + 'px');
+          open.resize(g.width + 'px', g.height + 'px');
+        }
+        if (typeof open.move === 'function') {
+          open.move(g.left + 'px', g.top + 'px');
         }
       }, 150);
     });
