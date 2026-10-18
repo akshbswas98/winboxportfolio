@@ -1,56 +1,169 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/style.css" />
-  <title>Welcome</title>
-  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>Akash Biswas - AI Engineer transitioning to Forward Deployed Engineering</title>
+  <meta name="description" content="AI Engineer transitioning to Forward Deployed Engineering. I study systems closely, then migrate them to new infrastructure with zero downtime and zero regressions." />
+  <meta name="author" content="Akash Biswas" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Akash Biswas - AI Engineer transitioning to Forward Deployed Engineering" />
+  <meta property="og:description" content="I study systems closely, then migrate them to new infrastructure with zero downtime and zero regressions." />
+  <meta property="og:url" content="https://akash-biswas-portfolio.netlify.app/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Akash Biswas - AI Engineer transitioning to Forward Deployed Engineering" />
+  <meta name="twitter:description" content="I study systems closely, then migrate them to new infrastructure with zero downtime and zero regressions." />
+
+  <link rel="stylesheet" href="css/style.css?v=prompt-blink" />
+  <link rel="icon" href="img/favicon.ico" sizes="any" />
+
+  <script>
+    // Runs before paint so CSS never flashes the no-JS layout.
+    document.documentElement.className =
+      document.documentElement.className.replace(/\bno-js\b/, 'js');
+  </script>
 </head>
 
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+
   <div class="container">
-    <nav>
+    <nav aria-label="Sections">
       <ul>
-        <li id="about">/about</li>
-        <li id="contact">/contact</li>
+        <li><a href="#sec-about"        data-win="about">/about</a></li>
+        <li><a href="#sec-projects"     data-win="projects">/projects</a></li>
+        <li><a href="#sec-books"        data-win="books">/books</a></li>
+        <li><a href="#sec-blogs"        data-win="blogs">/blogs</a></li>
+        <li><a href="#sec-certifications" data-win="certifications">/certifications</a></li>
+        <li><a href="#sec-contact"      data-win="contact">/contact</a></li>
       </ul>
     </nav>
 
-    <main>
-      <h1>Akash Biswas:$<span class="cursor">|</span></h1>
+    <main id="main">
+      <h1>Akash Biswas:<span id="prompt-blink" class="prompt-blink">$<span class="cursor" aria-hidden="true"></span></span></h1>
+      <script>
+        (function () {
+          var el = document.getElementById('prompt-blink');
+          if (!el) return;
+          setInterval(function () { el.classList.toggle('is-off'); }, 1000);
+        })();
+      </script>
+
+      <h3 class="role">AI Engineer <span class="arrow">&rarr;</span> Forward Deployed Engineer</h3>
+
+      <p class="tagline">
+        I study systems closely, then migrate them to new infrastructure
+        with <strong>zero downtime and zero regressions</strong>.
+      </p>
+
       <h3>Find me here:</h3>
-            <ul>
-                <li><a href="https://github.com/akshbswas98" target="_blank">/Github:</a>
-                </li>
-                <li><a href="https://www.linkedin.com/in/aakash-biswas-7a48a21b8/" target="_blank">/LinkedIn:</a>
-                </li>
-                <li><a href="https://www.instagram.com/akshbsws13/" target="_blank">/Instagram:</a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/channel/UClXoHnhs5vi9mbBFmQSwZug" target="_blank">/Youtube:</a>
-                </li>
-            </ul>
+      <ul class="socials">
+        <li><a href="https://github.com/akshbswas98" target="_blank" rel="noopener">/Github:</a></li>
+        <li><a href="https://www.linkedin.com/in/aakash-biswas-7a48a21b8/" target="_blank" rel="noopener">/LinkedIn:</a></li>
+        <li><a href="https://www.instagram.com/akshbsws13/" target="_blank" rel="noopener">/Instagram:</a></li>
+        <li><a href="https://www.youtube.com/channel/UClXoHnhs5vi9mbBFmQSwZug" target="_blank" rel="noopener">/Youtube:</a></li>
+      </ul>
     </main>
   </div>
 
-  <div class="hidden">
-    <div id="about-content">
-      <h2>about-me:$ <span class="cursor"></span></h2>
-      <p>Hi i am Akash Biswas(Student).I am a final year graduate pursuing Information Science and engineering in Acharya Institutes Bangalore</p>
-      <p>I am a budding Fullstack aspirant.More like a tech evangelist who loves trying new Javascript frameworks and interesting apps.PLease do connect with me if you are building something cool like this framework i've used to build this portfolio</p>
-  </div>
-  <div id="contact-content">
-        <ul>
-            <li>Phone:1234567890</li>
-            <li>Mail:test@mail.com</li>
-        </ul>
-  </div>
+  <!--
+    These sections are real, crawlable HTML. With JavaScript they are cloned into
+    WinBox windows; without JavaScript they render as a normal scrollable page.
+    Content is identical either way, so this is progressive enhancement rather
+    than cloaking.
+  -->
+  <div class="sections" id="sections">
+
+    <!-- ============================ ABOUT ============================ -->
+    <section class="content" id="sec-about" aria-labelledby="h-about">
+      <h2 id="h-about">about-me:$</h2>
+      <p>
+        I build AI systems, and I&rsquo;m deliberately moving toward the role where the AI meets
+        the customer&rsquo;s production reality: <strong>Forward Deployed Engineering</strong>.
+      </p>
+      <p>
+        The draw for me is migration work &mdash; the part most teams treat as a tax. Standing up
+        a model is a solved problem; moving an existing system onto new infrastructure without
+        dropping a request is not. It means reading a codebase nobody documented, mapping every
+        dependency, staging the cutover, and having a rollback that you have actually rehearsed.
+        I treat <strong>&ldquo;zero downtime, zero regressions&rdquo;</strong> as an engineering
+        constraint, not an aspiration.
+      </p>
+      <h3>What I optimise for</h3>
+      <ul class="bullets">
+        <li><strong>Zero-downtime cutovers</strong> &mdash; dual-write, backfill, flip, verify.</li>
+        <li><strong>Rehearsed rollback</strong> &mdash; a plan nobody has tested is not a plan.</li>
+        <li><strong>Observability before migration</strong> &mdash; you cannot trust what you cannot measure.</li>
+        <li><strong>Boring final weeks</strong> &mdash; the old system should be uneventful.</li>
+      </ul>
+      <p class="note">
+        This site is hand-rolled vanilla JS on WinBox &mdash; no framework, no build step.
+      </p>
+    </section>
+
+    <!-- ========================== PROJECTS ========================== -->
+    <section class="content" id="sec-projects" aria-labelledby="h-projects">
+      <h2 id="h-projects">projects:$</h2>
+      <div id="projects-mount" class="stack" aria-live="polite">
+        <p class="loading">loading projects&hellip;</p>
+      </div>
+    </section>
+
+    <!-- ============================ BOOKS =========================== -->
+    <section class="content" id="sec-books" aria-labelledby="h-books">
+      <h2 id="h-books">books:$</h2>
+      <p class="note">
+        Progress is a manual <code>Progress</code> number in Notion. Drag it, save, and this
+        updates within about a minute.
+      </p>
+      <div id="books-mount" class="stack" aria-live="polite">
+        <p class="loading">loading books&hellip;</p>
+      </div>
+    </section>
+
+    <!-- ============================ BLOGS ============================= -->
+    <section class="content" id="sec-blogs" aria-labelledby="h-blogs">
+      <h2 id="h-blogs">blogs:$</h2>
+      <div id="blogs-mount" class="stack" aria-live="polite">
+        <p class="loading">loading posts&hellip;</p>
+      </div>
+    </section>
+
+    <!-- ======================= CERTIFICATIONS ======================== -->
+    <section class="content" id="sec-certifications" aria-labelledby="h-certs">
+      <h2 id="h-certs">certifications:$</h2>
+      <div id="certs-mount" class="stack" aria-live="polite">
+        <p class="loading">loading certifications&hellip;</p>
+      </div>
+    </section>
+
+    <!-- =========================== CONTACT ========================== -->
+    <section class="content" id="sec-contact" aria-labelledby="h-contact">
+      <h2 id="h-contact">contact:$</h2>
+      <ul class="contact-list">
+        <li>Mail: <a href="mailto:pointblankakash4@gmail.com">pointblankakash4@gmail.com</a></li>
+        <li>Github: <a href="https://github.com/akshbswas98" target="_blank" rel="noopener">/akshbswas98</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/aakash-biswas-7a48a21b8/" target="_blank" rel="noopener">/in/aakash-biswas</a></li>
+        <li>Youtube: <a href="https://www.youtube.com/channel/UClXoHnhs5vi9mbBFmQSwZug" target="_blank" rel="noopener">/channel</a></li>
+      </ul>
+    </section>
+
   </div>
 
+  <!-- Shown only when JavaScript is unavailable -->
+  <noscript>
+    <p class="noscript-note">
+      JavaScript is disabled, so the terminal windows and live Notion content are unavailable.
+      The full written content of every section is still on this page.
+    </p>
+  </noscript>
+
   <script src="js/winbox.bundle.js"></script>
+  <script src="js/content.js"></script>
   <script src="js/main.js"></script>
 </body>
 
