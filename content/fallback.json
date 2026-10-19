@@ -71,34 +71,6 @@
       "year": 2026,
       "featured": true,
       "order": 1
-    },
-    {
-      "title": "Zero-Downtime Postgres to Aurora Cutover",
-      "summary": "REPLACE - one line describing the outcome, max ~90 characters.",
-      "description": "REPLACE - problem, approach, result. This is the text that gets you interviews.",
-      "stack": ["REPLACE", "with", "your", "stack"],
-      "repo": "https://github.com/akshbswas98",
-      "live": null,
-      "caseStudy": null,
-      "video": null,
-      "cover": null,
-      "year": 2026,
-      "featured": true,
-      "order": 2
-    },
-    {
-      "title": "REPLACE - Project name",
-      "summary": "REPLACE - one line describing the outcome.",
-      "description": "REPLACE - problem, approach, result.",
-      "stack": ["REPLACE"],
-      "repo": "https://github.com/akshbswas98",
-      "live": null,
-      "caseStudy": null,
-      "video": null,
-      "cover": null,
-      "year": 2026,
-      "featured": false,
-      "order": 3
     }
   ],
 
