@@ -15,7 +15,6 @@
   var TITLES = {
     about: 'About Me',
     projects: 'Projects',
-    resume: 'Resume',
     books: 'Books',
     blogs: 'Blogs',
     certifications: 'Certifications',
