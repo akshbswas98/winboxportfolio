@@ -1,0 +1,93 @@
+{
+  "_comment": "Static resume data. Kept in its own file rather than inside fallback.json so it renders no matter what the content API returns -- the Notion-backed /api/content payload has no resume key, and a missing key would blank this section out in production.",
+
+  "name": "Akash Biswas",
+  "title": "AI Engineer II",
+  "summary": "AI/Backend Engineer with 4+ years of experience building scalable backend and GenAI applications using Python, Java, and cloud-native architectures. Experienced in translating business needs into AI solutions, creating POCs, and contributing to architecture, modeling, and production deployments.",
+
+  "contact": [
+    { "label": "Phone", "value": "+91-9434840949" },
+    { "label": "Email", "value": "biswa.akash.ab@gmail.com", "href": "mailto:biswa.akash.ab@gmail.com" },
+    { "label": "GitHub", "value": "akshbswas98", "href": "https://github.com/akshbswas98" },
+    { "label": "LinkedIn", "value": "akashbiswas13", "href": "https://www.linkedin.com/in/aakash-biswas-7a48a21b8/" },
+    { "label": "Location", "value": "Kolkata, India" }
+  ],
+
+  "experience": [
+    {
+      "role": "Generative AI Engineer",
+      "company": "EY-GDS",
+      "period": "04/2026 - Present",
+      "location": "Kolkata, India",
+      "points": [
+        "Building and optimizing generative AI pipelines (RAG, agentic workflows, prompt engineering)",
+        "Working with LLMs (GPT, Llama, Gemini) for automation, summarization, content generation, and data synthesis",
+        "Collaborating with cross-functional teams to integrate Gen AI into enterprise systems securely and at scale",
+        "Ensuring responsible AI practices, including bias mitigation, prompt safety, and governance"
+      ]
+    },
+    {
+      "role": "Software Engineer - Backend & AI",
+      "company": "Tata Consultancy Services",
+      "period": "08/2022 - 03/2026",
+      "points": [
+        "Built GenAI-driven automation tools using OpenAI, Azure OpenAI, LangChain, and CrewAI",
+        "Designed RAG pipelines, vector-based search, and LLM-integrated microservices",
+        "Developed APIs in Python and Java, improving scalability, performance, and async processing",
+        "Deployed solutions on AWS (ECS, Lambda, SQS) and GCP (Pub/Sub, Vertex AI)",
+        "Collaborated with data engineers on data modeling, ML pipelines, and feature preparation",
+        "Used Docker, CI/CD, GitHub Actions, and observability tools (Grafana, CloudWatch)",
+        "Participated in architectural discussions, client interactions, and technical demos"
+      ]
+    },
+    {
+      "role": "Full-stack Developer",
+      "company": "Yunicorp",
+      "period": "10/2021 - 12/2021",
+      "location": "Remote"
+    },
+    {
+      "role": "Web App Developer",
+      "company": "Anti Corona Task Force",
+      "period": "09/2020 - 03/2021",
+      "points": [
+        "Created awareness pages for COVID-19 and moderated content using Drupal 8"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "Visvesvaraya Technological University (VTU)",
+      "location": "India",
+      "degree": "B.E. in Information Science and Engineering",
+      "period": "2018 - 2022"
+    }
+  ],
+
+  "skills": [
+    { "group": "AI/GenAI", "items": ["LLMs", "RAG", "Prompt Engineering", "LangChain", "CrewAI", "LangGraph", "Model Context Protocol (MCP)"] },
+    { "group": "Cloud AI", "items": ["Azure OpenAI", "AWS Bedrock", "GCP Vertex AI"] },
+    { "group": "Programming", "items": ["Python", "Java", "Node.js", "SQL", "PySpark (Beginner)"] },
+    { "group": "MLOps / Deployment", "items": ["Docker", "Kubernetes", "CI/CD", "GitHub Actions", "MLFlow concepts"] },
+    { "group": "Backend", "items": ["Microservices", "Async Programming", "Redis", "SQS", "Pub/Sub", "Java Spring Boot", "PostgreSQL"] },
+    { "group": "Tools", "items": ["Grafana", "Prometheus", "Splunk", "Terraform (Basic)"] }
+  ],
+
+  "certifications": [
+    { "name": "Google Generative AI Leader", "date": "Oct 2025" },
+    { "name": "Oracle Java SE 8 (1Z0-808)", "date": null },
+    { "name": "GitHub Copilot Certification", "date": "June 2026" }
+  ],
+
+  "achievements": [
+    "TCS AI Igniter Hackathon - Top Entry (2025)",
+    "Xcelerate Warrior Award (2023) - Recognized for backend reliability and AI automation contributions"
+  ],
+
+  "publications": [
+    { "title": "Image Authentication in Multimedia Streaming", "venue": "IRJMETS", "year": "2022" }
+  ],
+
+  "pdf": "resume/Akash_Biswas_AI_Engineer_Resume.pdf"
+}

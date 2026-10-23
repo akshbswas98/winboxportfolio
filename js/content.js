@@ -15,6 +15,7 @@
 
   var ENDPOINT = '/api/content';
   var FALLBACK_FILE = 'content/fallback.json';
+  var RESUME_FILE = 'content/resume.json';
 
   /* ---------------------------------------------------------------- fetch */
 
@@ -244,6 +245,146 @@
     }, 'Not reading anything right now.');
   }
 
+  /* ----------------------------------------------------------------- resume */
+
+  /* The resume is its own static file, not part of the Notion payload, so it
+     has to be fetched separately and rendered on its own timeline. */
+  function renderResume(r) {
+    var mount = document.getElementById('resume-mount');
+    if (!mount) return;
+    clear(mount);
+    if (!r) {
+      mount.appendChild(el('p', 'note', 'Resume unavailable right now.'));
+      return;
+    }
+
+    var head = el('div', 'resume-head');
+    head.appendChild(el('h3', null, r.name));
+    if (r.title) head.appendChild(el('div', 'resume-title', r.title));
+
+    if (r.contact && r.contact.length) {
+      var c = el('div', 'resume-contact');
+      r.contact.forEach(function (item) {
+        var v = item.href ? link(item.href, item.value) : el('span', null, item.value);
+        v.classList.add('resume-contact-item');
+        c.appendChild(v);
+      });
+      head.appendChild(c);
+    }
+    mount.appendChild(head);
+
+    if (r.pdf) {
+      var dl = el('div', 'links');
+      dl.appendChild(link(r.pdf, '-> download pdf'));
+      mount.appendChild(dl);
+    }
+
+    if (r.summary) mount.appendChild(el('p', 'resume-summary', r.summary));
+
+    /* -- experience -- */
+    if (r.experience && r.experience.length) {
+      mount.appendChild(el('h4', 'resume-h', 'Experience'));
+      r.experience.forEach(function (job) {
+        var card = el('div', 'card resume-card');
+
+        var jh = el('div', 'resume-row');
+        jh.appendChild(el('span', 'resume-role', job.role));
+        if (job.company) jh.appendChild(el('span', 'resume-org', job.company));
+        card.appendChild(jh);
+
+        var meta = [job.period, job.location].filter(Boolean);
+        if (meta.length) card.appendChild(el('div', 'resume-meta', meta.join('   |   ')));
+
+        if (job.points && job.points.length) {
+          var ul = el('ul', 'resume-points');
+          job.points.forEach(function (p) { ul.appendChild(el('li', null, p)); });
+          card.appendChild(ul);
+        }
+        mount.appendChild(card);
+      });
+    }
+
+    /* -- education -- */
+    if (r.education && r.education.length) {
+      mount.appendChild(el('h4', 'resume-h', 'Education'));
+      r.education.forEach(function (ed) {
+        var card = el('div', 'card resume-card');
+        var eh = el('div', 'resume-row');
+        eh.appendChild(el('span', 'resume-role', ed.institution));
+        if (ed.degree) eh.appendChild(el('span', 'resume-org', ed.degree));
+        card.appendChild(eh);
+        var meta = [ed.period, ed.location].filter(Boolean);
+        if (meta.length) card.appendChild(el('div', 'resume-meta', meta.join('   |   ')));
+        mount.appendChild(card);
+      });
+    }
+
+    /* -- skills -- */
+    if (r.skills && r.skills.length) {
+      mount.appendChild(el('h4', 'resume-h', 'Skills'));
+      r.skills.forEach(function (group) {
+        var row = el('div', 'skill-group');
+        row.appendChild(el('span', 'skill-label', group.group));
+        var chips = el('div', 'chips');
+        (group.items || []).forEach(function (s) { chips.appendChild(el('span', 'chip', s)); });
+        row.appendChild(chips);
+        mount.appendChild(row);
+      });
+    }
+
+    /* -- certifications -- */
+    if (r.certifications && r.certifications.length) {
+      mount.appendChild(el('h4', 'resume-h', 'Certifications'));
+      var cl = el('ul', 'resume-plain');
+      r.certifications.forEach(function (c) {
+        var li = el('li');
+        li.appendChild(el('span', null, c.name));
+        if (c.date) li.appendChild(el('span', 'resume-meta', c.date));
+        cl.appendChild(li);
+      });
+      mount.appendChild(cl);
+    }
+
+    /* -- achievements -- */
+    if (r.achievements && r.achievements.length) {
+      mount.appendChild(el('h4', 'resume-h', 'Achievements'));
+      var al = el('ul', 'resume-plain');
+      r.achievements.forEach(function (a) { al.appendChild(el('li', null, a)); });
+      mount.appendChild(al);
+    }
+
+    /* -- publications -- */
+    if (r.publications && r.publications.length) {
+      mount.appendChild(el('h4', 'resume-h', 'Publications'));
+      var pl = el('ul', 'resume-plain');
+      r.publications.forEach(function (p) {
+        var li = el('li');
+        li.appendChild(el('span', null, p.title));
+        var meta = [p.venue, p.year].filter(Boolean);
+        if (meta.length) li.appendChild(el('span', 'resume-meta', meta.join(', ')));
+        pl.appendChild(li);
+      });
+      mount.appendChild(pl);
+    }
+  }
+
+  function loadResume() {
+    return getJSON(RESUME_FILE)
+      .then(function (d) {
+        window.PortfolioContent.resume = d;
+        renderResume(d);
+      })
+      .catch(function () {
+        renderResume(null);
+      })
+      .then(function () {
+        /* A window may have opened before the resume finished loading, so it
+           still holds the "loading resume..." placeholder. Re-announce so
+           main.js can re-sync the open window. */
+        document.dispatchEvent(new CustomEvent('portfolio:content'));
+      });
+  }
+
   /* ----------------------------------------------------------------- blogs */
 
   function renderBlogs(list) {
@@ -333,6 +474,7 @@
        first removes the state the other one checks. */
   window.PortfolioContent = {
     data: null,
+    resume: null,
     load: load,
     render: render,
     isLightboxOpen: function () { return !!lightbox; },
@@ -357,5 +499,9 @@
       .catch(function () {
         render({ projects: [], books: [], blogs: [], certifications: [] });
       });
+
+    /* Independent of the content API: the resume always loads from its own
+       static file, so it survives a Notion outage. */
+    loadResume();
   });
 })();
