@@ -254,6 +254,91 @@ html.js .prompt-blink {
 
 .contact-list li { margin-bottom: 6px; font-size: 0.92rem; }
 
+/* --------------------------- coding profiles ------------------------------ */
+/* Fake shell readout: prompt + command on line 1, output on line 2. The block
+   cursor reuses the hero's blink keyframes, so the reduced-motion rule below
+   (which only exempts .prompt-blink) parks it visible instead of blinking. */
+.shell {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  background: #0f0f0f;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  line-height: 1.55;
+}
+
+.shell-cmd,
+.shell-out {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.shell-cmd {
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shell-prompt {
+  color: var(--text-color);
+  margin-right: 6px;
+}
+
+.shell-out {
+  color: var(--fg-dim);
+  padding-left: 1.1em;   /* sits the output under the command text */
+}
+
+.shell-cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 3px;
+  background: var(--text-color);
+  vertical-align: -0.15em;
+  animation: prompt-blink 2s step-end infinite;
+}
+
+.profiles {
+  display: grid;
+  gap: 9px;
+  margin-bottom: 4px;
+}
+
+/* One row per platform: name, handle, then the link pushed to the right.
+   Wraps instead of overflowing when the handle or viewport is narrow. */
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.profile .platform {
+  flex: none;
+  color: var(--text-color);
+  font-size: 0.92rem;
+}
+
+.profile .handle {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--fg-dim);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.profile .go {
+  flex: none;
+  margin-left: auto;
+  font-size: 0.8rem;
+}
+
 /* ------------------------------- loading ---------------------------------- */
 .loading { color: var(--fg-dim); font-size: 0.9rem; }
 

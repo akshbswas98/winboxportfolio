@@ -18,6 +18,7 @@
     books: 'Books',
     blogs: 'Blogs',
     certifications: 'Certifications',
+    coding_profiles: 'Coding Profiles',
     contact: 'Contact Me'
   };
 
